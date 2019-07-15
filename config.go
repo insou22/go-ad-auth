@@ -14,6 +14,7 @@ type SecurityType int
 const (
 	SecurityNone SecurityType = iota
 	SecurityTLS
+	SecurityBlindTLS
 	SecurityStartTLS
 )
 
