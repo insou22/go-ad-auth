@@ -55,7 +55,7 @@ func AuthenticateExtended(domain string, config *Config, username, password stri
 	}
 
 	//get entry
-	entry, err = conn.GetAttributes("userPrincipalName", upn, attrs)
+	entry, err = conn.GetAttributes("sAMAccountName", upn, attrs)
 	if err != nil {
 		return false, nil, nil, err
 	}

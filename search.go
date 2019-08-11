@@ -2,7 +2,6 @@ package auth
 
 import (
 	"fmt"
-	"strings"
 
 	"gopkg.in/ldap.v3"
 )
@@ -75,11 +74,5 @@ func (c *Conn) GetDN(attr, value string) (string, error) {
 //GetAttributes returns the *ldap.Entry with the given attributes for the object with the given attribute value or an error if one occurred.
 //attr and value are sanitized.
 func (c *Conn) GetAttributes(attr, value string, attrs []string) (*ldap.Entry, error) {
-	val := ""
-	if attr == "userPrincipalName" {
-		val = strings.Replace(ldap.EscapeFilter(value), "\\5c", "\\", -1)
-	} else {
-		val = ldap.EscapeFilter(value)
-	}
-	return c.SearchOne(fmt.Sprintf("(%s=%s)", ldap.EscapeFilter(attr), val), attrs)
+	return c.SearchOne(fmt.Sprintf("(%s=%s)", ldap.EscapeFilter(attr), ldap.EscapeFilter(value)), attrs)
 }
